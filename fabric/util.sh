@@ -4,6 +4,7 @@ _BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 [ -z "$BIN" ] && echo "Не определен путь" && exit 1
 [ "$1" ] && _BIN="${_BIN}/$1"
 [ ! -d "$_BIN" ] && echo "Ошибка определения текущей директории" && exit 1
+[ ! -f "${_BIN}/util.sh" ] && echo "Ошибка определения текущей директории" && exit 1
 
 set -o allexport
 source "${_BIN}/project.properties"
@@ -21,8 +22,7 @@ ERR=""
 [ -z "$__HSM_LIB__" ] && echo "Не установлено значение HSM_LIB" && ERR=1
 [ -z "$__HSM_SLOT__" ] && echo "Не установлено значение HSM_SLOT" && ERR=1
 [ -z "$__HSM_PIN__" ] && echo "Не установлено значение HSM_PIN" && ERR=1
-
-[ -n "$ERR1" ] && exit 1
+[ -n "$ERR" ] && exit 1
 
 export PATH="${_BIN}/bin.1.4.9:/bin-fabric-ca:${PATH}"
 
