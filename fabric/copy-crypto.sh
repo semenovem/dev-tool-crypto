@@ -1,5 +1,9 @@
 #!/bin/bash
 
+HSM_LIB="1"
+HSM_SLOT="1"
+HSM_PIN="1"
+
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/util.sh" ""
 

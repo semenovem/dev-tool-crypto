@@ -3,6 +3,8 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/../util.sh" ".."
 
+[ -z "$__PRODUCTION__" ] && echo "$__ERR_DENY_PROD__" && exit 1
+
 bash "${BIN}/../stop-ca.sh" || exit 1
 rm -rf "${__FABCA__:?}" || exit 1
 rm -rf "${__CRYPTO__:?}" || exit 1

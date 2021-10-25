@@ -3,13 +3,12 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/../util.sh" ".."
 
-LOG_FILE="/tmp/ca-server-msp.txt"
-
 mkdir -p "$__CA_SRV_HOME__" || exit 1
+mkdir -p "$__LOGS_DIR__" || exit 1
 
 CFG_SOURCE="${__CFG__}/ca-server.yaml"
 CFG_DIST="${__CA_SRV_HOME__}/fabric-ca-server-config.yaml"
-[ ! -f "$CFG_DIST" ] && cp "$CFG_SOURCE" "$CFG_DIST" && [ $? -ne 0 ] && exit 1
+[ ! -f "$CFG_DIST" ] && (cp "$CFG_SOURCE" "$CFG_DIST" || exit 1)
 cd "$__CA_SRV_HOME__" || exit 1
 
 export FABRIC_CA_SERVER_DEBUG=false
@@ -29,9 +28,9 @@ fabric-ca-server start \
   --csr.keyrequest.algo "ecdsa" \
   --csr.keyrequest.size 256 \
   --csr.hosts "0.0.0.0" \
-  &>"$LOG_FILE" &
+  &>"$__CA_LOG__" &
 
 sleep 1
 
-cat "$LOG_FILE" || exit 1
-grep -i "Listening on http" "$LOG_FILE" || exit 1
+cat "$__CA_LOG__" || exit 1
+grep -i "Listening on http" "$__CA_LOG__" || exit 1

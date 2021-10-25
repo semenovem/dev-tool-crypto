@@ -22,18 +22,28 @@ for DIR in $(find "${__CRYPTO_PEER__:?}" -depth -type d); do
   [ -z "$TMP_DIR" ] && exit 1
 
   if [[ $DIR == *"/tls" ]]; then
-    mv "${DIR}/keystore/key.pem" "$TMP_DIR" || exit 1
-    mv "${DIR}/signcerts/cert.pem" "$TMP_DIR" || exit 1
-    mv "${DIR}/tlscacerts/tlscacert.pem" "${TMP_DIR}/ca.pem" || exit 1
-    mv "${DIR}/IssuerPublicKey" "$TMP_DIR" || exit 1
-    mv "${DIR}/IssuerRevocationPublicKey" "$TMP_DIR" || exit 1
+    [ -f "${DIR}/keystore/key.pem" ] &&
+      (mv "${DIR}/keystore/key.pem" "$TMP_DIR" || exit 1)
+
+    [ -f "${DIR}/signcerts/cert.pem" ] &&
+      (mv "${DIR}/signcerts/cert.pem" "$TMP_DIR" || exit 1)
+
+    [ -f "${DIR}/tlscacerts/tlscacert.pem" ] &&
+      (mv "${DIR}/tlscacerts/tlscacert.pem" "${TMP_DIR}/ca.pem" || exit 1)
+
+    [ -f "${DIR}/IssuerPublicKey" ] &&
+      (mv "${DIR}/IssuerPublicKey" "$TMP_DIR" || exit 1)
+
+    [ -f "${DIR}/IssuerRevocationPublicKey" ] &&
+      (mv "${DIR}/IssuerRevocationPublicKey" "$TMP_DIR" || exit 1)
 
     rm -rf "$DIR" || exit 1
     mv "$TMP_DIR" "$DIR" || exit 1
   fi
 
   if [[ $DIR == *"/msp" ]]; then
-    cp "${BIN}/config.yaml" "$DIR" || exit 1
+    [ ! -f "${BIN}/config.yaml" ] &&
+      (cp "${BIN}/config.yaml" "$DIR" || exit 1)
   fi
 done
 
