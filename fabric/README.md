@@ -1,5 +1,6 @@
- # Создание крипто-материалов для Hyperledger Fabric
+# Создание крипто-материалов для Hyperledger Fabric
 
+## Создания крипто-метериалов при использовании docker
 ## Общие действия для создания крипто-метериалов
 
 1) Собрать образ build
@@ -22,3 +23,5 @@
 
 Создать docker volume для хранения постоянных данных crypto генератора
 docker volume create --driver local afsc-fabric-crypto-db
+
+

@@ -25,9 +25,9 @@ dev:
 		-w /app \
 		-v $(PWD):/app:ro \
 		-v afsc-fabric-crypto-db:$(MOUNT_DIR):rw \
-		-e __HSM_LIB__=/usr/lib/softhsm/libsofthsm2.so \
-		-e __HSM_SLOT__=afsc \
-		-e __HSM_PIN__=RecnCbhtyb \
+		-e HSM_LIB=/usr/lib/softhsm/libsofthsm2.so \
+		-e HSM_SLOT=afsc \
+		-e HSM_PIN=RecnCbhtyb \
 		-e SOFTHSM2_CONF=/app/cfg/softhsm.conf \
 		"$(DOCKER_IMG)" bash -c "$(CMD)"
 
@@ -44,7 +44,7 @@ start-ca:
 		-v /etc/Chrystoki.conf:/etc/Chrystoki.conf:ro \
 		-v /usr/safenet/lunaclient/cert:/usr/safenet/lunaclient/cert:ro \
 		-v /usr/safenet/lunaclient/lib/libCryptoki2_64.so:/usr/lib/libCryptoki2_64.so:ro \
-		-e __HSM_LIB__=/usr/lib/libCryptoki2_64.so \
-		-e __HSM_SLOT__=afsc \
-		-e __HSM_PIN__=RecnCbhtyb \
+		-e HSM_LIB=/usr/lib/libCryptoki2_64.so \
+		-e HSM_SLOT=afsc \
+		-e HSM_PIN=RecnCbhtyb \
 		"$(DOCKER_IMG)" bash -c 'bash inside/start-ca.sh && bash'

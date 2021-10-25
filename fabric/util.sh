@@ -1,13 +1,28 @@
 #!/bin/bash
 
 _BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
+[ -z "$BIN" ] && echo "Не определен путь" && exit 1
 [ "$1" ] && _BIN="${_BIN}/$1"
+[ ! -d "$_BIN" ] && echo "Ошибка определения текущей директории" && exit 1
 
 set -o allexport
 source "${_BIN}/project.properties"
 set +o allexport
 
 export __MOUNT_DIR__="$MOUNT_DIR"
+export __HSM_LIB__="$HSM_LIB"
+export __HSM_SLOT__="$HSM_SLOT"
+export __HSM_PIN__="$HSM_PIN"
+
+[[ "$__MOUNT_DIR__" != /* ]] && __MOUNT_DIR__="${_BIN}/${__MOUNT_DIR__}"
+
+ERR=""
+[ -z "$__MOUNT_DIR__" ] && echo "Не установлено значение MOUNT_DIR" && ERR=1
+[ -z "$__HSM_LIB__" ] && echo "Не установлено значение HSM_LIB" && ERR=1
+[ -z "$__HSM_SLOT__" ] && echo "Не установлено значение HSM_SLOT" && ERR=1
+[ -z "$__HSM_PIN__" ] && echo "Не установлено значение HSM_PIN" && ERR=1
+
+[ -n "$ERR1" ] && exit 1
 
 export PATH="${_BIN}/bin.1.4.9:/bin-fabric-ca:${PATH}"
 
@@ -21,8 +36,8 @@ export __CRYPTO_ORDERER__="${__CRYPTO__}/ordererOrganizations"
 
 export __CFG__="${_BIN}/cfg"
 
-export __TLSCA_PORT__="7051"
-export __CA_PORT__="7053"
+export __TLSCA_PORT__="${TLSCA_PORT:=7051}"
+export __CA_PORT__="${CA_PORT:=7053}"
 
 export __TLSCA_SRV_HOME__="${__FABCA__}/tlsca-server"
 export __TLSCA_ADM_HOME__="${__FABCA__}/tlsca-admin"
@@ -44,15 +59,6 @@ export __CONN_ADM_CERT__="${__CONN_TLS__}/admin-cert.pem"
 export __REENROLL__=
 
 export __SOFTHSM_TOKENS__="${__FABCA__}/softhsm/tokens"
-
-# Файл устанавливаемых свойств
-FILE_PROP="${__FABCA__}/project.properties"
-
-if [ -f "$FILE_PROP" ]; then
-  set -o allexport
-  source "$FILE_PROP"
-  set +o allexport
-fi
 
 export __TLSCA_SCR__="0.0.0.0:${__TLSCA_PORT__}"
 export __CA_SCR__="0.0.0.0:${__CA_PORT__}"
@@ -95,3 +101,4 @@ fabric-ca-client () {
 }
 
 export -f fabric-ca-client
+
