@@ -47,4 +47,4 @@ start-ca:
 		-e HSM_LIB=/usr/lib/libCryptoki2_64.so \
 		-e HSM_SLOT=afsc \
 		-e HSM_PIN=RecnCbhtyb \
-		"$(DOCKER_IMG)" bash -c 'bash inside/start-ca.sh && bash'
+		"$(DOCKER_IMG)" bash -c 'bash start-ca.sh && bash'

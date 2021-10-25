@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../util.sh" ".."
+source "${BIN}/util.sh" ""
 
 PIDS=$(ps -fC fabric-ca-serve | awk '{print $2}' | tail -n +2)
 
