@@ -3,10 +3,6 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/util.sh" ""
 
-echo ">> $?"
-
-exit 0
-
 # tls --------------------------
 bash "${BIN}/cmd/tlsca-admin.sh" || exit 1
 bash "${BIN}/cmd/tlsca-register.sh" || exit 1
