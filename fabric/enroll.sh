@@ -13,4 +13,4 @@ bash "${BIN}/cmd/ca-admin.sh" || exit 1
 bash "${BIN}/cmd/ca-register.sh" || exit 1
 bash "${BIN}/cmd/ca-enroll.sh" || exit 1
 
-bash "${BIN}/99-pretty.sh"
+bash "${BIN}/cmd/99-pretty.sh" || exit 1

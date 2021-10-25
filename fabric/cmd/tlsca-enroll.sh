@@ -13,7 +13,6 @@ fabric-ca-client enroll -u "https://afsc-peer0.vtb.ru:peer0PW@${__TLSCA_SCR__}" 
 
 [ $? -ne 0 ] && exit 1
 
-exit 0
 
 fabric-ca-client enroll -u "https://afsc-peer1.vtb.ru:peer1PW@${__TLSCA_SCR__}" \
   --enrollment.profile tls \
@@ -39,6 +38,4 @@ fabric-ca-client enroll -u "https://User1@vtb.ru:User1PW@${__TLSCA_SCR__}" \
   --csr.names "C=RU,ST=St. Petersburg,L=St. Petersburg,O=VTB Bank(PJSC)" \
   --mspdir "${__CRYPTO_PEER__}/vtb.ru/users/User1@vtb.ru/tls"
 
-[ $? -ne 0 ] && exit 1
-
-exit 0
+exit $?

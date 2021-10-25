@@ -39,6 +39,4 @@ fabric-ca-client enroll -u https://Admin@vtb.ru:AdminPW@0.0.0.0:7053 \
 fabric-ca-client enroll -u https://User1@vtb.ru:UserPW@0.0.0.0:7053 \
   --mspdir "${__CRYPTO_PEER__}/vtb.ru/users/User1@vtb.ru/msp"
 
-[ $? -ne 0 ] && exit 1
-
-exit 0
+exit $?

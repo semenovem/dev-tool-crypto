@@ -39,5 +39,3 @@ fi
 docker cp "${DOCKER_CONTAINER_NAME}:${__CRYPTO__}/." "$DEST"
 
 [ "$LOCAL" ] && (docker stop "$DOCKER_CONTAINER_NAME" || exit 1)
-
-exit 0

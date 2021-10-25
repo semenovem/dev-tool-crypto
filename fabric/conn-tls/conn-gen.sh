@@ -63,6 +63,4 @@ openssl x509 -req -days "365" \
   -CAcreateserial \
   -out "$__CONN_ADM_CERT__"
 
-[ "$?" -ne "0" ] && exit 1
-
-exit 0
+exit $?

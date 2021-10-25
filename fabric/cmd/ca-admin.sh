@@ -18,6 +18,4 @@ fabric-ca-client enroll -u https://ca-admin:ca-adminpw@0.0.0.0:7053 \
   --csr.keyrequest.size "256" \
   --csr.names "C=RU,ST=St. Petersburg,L=St. Petersburg,O=VTB Bank(PJSC),OU=AFSC"
 
-[ $? -ne 0 ] && exit 1
-
-exit 0
+exit $?

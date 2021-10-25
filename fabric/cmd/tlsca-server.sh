@@ -27,5 +27,3 @@ sleep 1
 
 cat "$LOG_FILE" || exit 1
 grep -i "Listening on http" "$LOG_FILE" || exit 1
-
-exit 0

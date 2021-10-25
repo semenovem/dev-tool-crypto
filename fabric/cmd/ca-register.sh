@@ -25,6 +25,4 @@ fabric-ca-client register --id.name Admin@vtb.ru --id.secret AdminPW \
 fabric-ca-client register --id.name User1@vtb.ru --id.secret UserPW \
   --id.type user
 
-[ $? -ne 0 ] && exit 1
-
-exit 0
+exit $?

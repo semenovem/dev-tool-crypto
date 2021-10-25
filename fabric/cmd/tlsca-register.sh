@@ -15,6 +15,5 @@ fabric-ca-client register --id.name Admin@vtb.ru --id.secret AdminPW --id.type a
 [ $? -ne 0 ] && exit 1
 
 fabric-ca-client register --id.name User1@vtb.ru --id.secret User1PW --id.type user
-[ $? -ne 0 ] && exit 1
 
-exit 0
+exit $?

@@ -8,5 +8,4 @@ source "${BIN}/util.sh" ""
 
 export FABRIC_CA_CLIENT_HOME="$__TLSCA_ADM_HOME__"
 
-
 fabric-ca-client certificate list
