@@ -21,12 +21,18 @@ export __MOUNT_DIR__="$MOUNT_DIR"
 export __HSM_LIB__="$HSM_LIB"
 export __HSM_SLOT__="$HSM_SLOT"
 export __HSM_PIN__="$HSM_PIN"
+
 # Директория для логов удостоверяющих серверов default: logs
 export __LOGS_DIR__="${LOGS_DIR:=logs}"
+
 # Порт сервера удостоверяющего центра TLS default 7051
 export __TLSCA_PORT__="${TLSCA_PORT:=7051}"
+
 # Порт сервера удостоверяющего центра CA (msp) default 7053
 export __CA_PORT__="${CA_PORT:=7053}"
+
+# Хранение ключевой информации [PKCS11 | SW]
+export __BCCSP_DEFAULT__="${BCCSP_DEFAULT:=SW}"
 
 # --------------------------
 [[ "$__MOUNT_DIR__" != /* ]] && __MOUNT_DIR__="${_BIN}/${__MOUNT_DIR__}"

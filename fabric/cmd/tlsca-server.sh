@@ -25,4 +25,4 @@ fabric-ca-server start \
 sleep 1
 
 cat "$__TLSCA_LOG__" || exit 1
-grep -i "Listening on http" "$__TLSCA_LOG__" || exit 1
+grep -i "Listening on http" "$__TLSCA_LOG__"

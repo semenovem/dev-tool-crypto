@@ -13,7 +13,7 @@ cd "$__CA_SRV_HOME__" || exit 1
 
 export FABRIC_CA_SERVER_DEBUG=false
 export FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=127.0.0.1:9444
-export FABRIC_CA_SERVER_BCCSP_DEFAULT=PKCS11
+export FABRIC_CA_SERVER_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
 
 fabric-ca-server start \
   -b ca-admin:ca-adminpw \
@@ -33,4 +33,4 @@ fabric-ca-server start \
 sleep 1
 
 cat "$__CA_LOG__" || exit 1
-grep -i "Listening on http" "$__CA_LOG__" || exit 1
+grep -i "Listening on http" "$__CA_LOG__"

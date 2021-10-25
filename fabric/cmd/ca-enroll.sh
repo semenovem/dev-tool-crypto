@@ -4,7 +4,7 @@ BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/../util.sh" ".."
 
 export FABRIC_CA_CLIENT_HOME="$__CA_ADM_HOME__"
-export FABRIC_CA_CLIENT_BCCSP_DEFAULT=PKCS11
+export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
 
 MSP_DIR="${__CRYPTO_PEER__}/vtb.ru/peers/peer0.vtb.ru/msp"
 dir-empty "$MSP_DIR" && (
