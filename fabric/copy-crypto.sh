@@ -25,12 +25,8 @@ if [ ! -d "$DEST" ]; then
   mkdir -p "$DEST" || exit 1
 fi
 
-set -o allexport
-source "${BIN}/project.properties"
-set +o allexport
-
 LOCAL=
-ID=$(docker container ls -f name="^${DOCKER_CONTAINER_NAME}\$" -q) || exit 1
+ID=$(docker container ls -f name="^${__DOCKER_CONTAINER_NAME__}\$" -q) || exit 1
 if [ -z "$ID" ]; then
   echo "Контейнер не запущен, пробуем запустить"
 
@@ -40,6 +36,6 @@ if [ -z "$ID" ]; then
   sleep 1
 fi
 
-docker cp "${DOCKER_CONTAINER_NAME}:${__CRYPTO__}/." "$DEST"
+docker cp "${__DOCKER_CONTAINER_NAME__}:${__CRYPTO__}/." "$DEST"
 
-[ "$LOCAL" ] && (docker stop "$DOCKER_CONTAINER_NAME" || exit 1)
+[ "$LOCAL" ] && (docker stop "$__DOCKER_CONTAINER_NAME__" || exit 1)

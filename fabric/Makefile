@@ -25,6 +25,8 @@ dev:
 		-w /app \
 		-v $(PWD):/app:ro \
 		-v afsc-fabric-crypto-db:$(MOUNT_DIR):rw \
+		-e PRODUCTION=off \
+		-e BCCSP_DEFAULT=PKCS11 \
 		-e LOGS_DIR=/tmp \
 		-e HSM_LIB=/usr/lib/softhsm/libsofthsm2.so \
 		-e HSM_SLOT=afsc \

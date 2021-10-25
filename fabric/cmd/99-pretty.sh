@@ -3,6 +3,8 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/../util.sh" ".."
 
+ADMIN_CERT="${__CRYPTO_PEER__}/vtb.ru/users/Admin@vtb.ru/msp/signcerts/cert.pem"
+
 for f in $(find "${__CRYPTO_PEER__:?}" -iname "*_sk"); do
   mv "$f" "$(dirname "$f")/key.pem" || exit 1
 done
@@ -44,6 +46,11 @@ for DIR in $(find "${__CRYPTO_PEER__:?}" -depth -type d); do
   if [[ $DIR == *"/msp" ]]; then
     [ ! -f "${BIN}/config.yaml" ] &&
       (cp "${BIN}/config.yaml" "$DIR" || exit 1)
+
+    mkdir -p "${DIR}/admincerts" || exit 1
+
+    [ ! -f "${DIR}/admincerts/$(basename "$ADMIN_CERT")" ] &&
+      (cp "$ADMIN_CERT" "${DIR}/admincerts" || exit 1)
   fi
 done
 

@@ -40,9 +40,12 @@ export __BCCSP_DEFAULT__="${BCCSP_DEFAULT:=SW}"
 
 ERR=""
 [ -z "$__MOUNT_DIR__" ] && echo "Не установлено значение MOUNT_DIR" && ERR=1
-[ -z "$__HSM_LIB__" ] && echo "Не установлено значение HSM_LIB" && ERR=1
-[ -z "$__HSM_SLOT__" ] && echo "Не установлено значение HSM_SLOT" && ERR=1
-[ -z "$__HSM_PIN__" ] && echo "Не установлено значение HSM_PIN" && ERR=1
+if [[ "$__BCCSP_DEFAULT__" == "PKCS11" ]]; then
+  [ -z "$__HSM_LIB__" ] && echo "Не установлено значение HSM_LIB" && ERR=1
+  [ -z "$__HSM_SLOT__" ] && echo "Не установлено значение HSM_SLOT" && ERR=1
+  [ -z "$__HSM_PIN__" ] && echo "Не установлено значение HSM_PIN" && ERR=1
+fi
+
 [ -n "$ERR" ] && exit 1
 
 export PATH="${_BIN}/bin.1.4.9:/bin-fabric-ca:${PATH}"
@@ -135,3 +138,4 @@ export -f dir-empty
 # --------------------------
 export __SOFTHSM_TOKENS__="${__FABCA__}/softhsm/tokens"
 export __ERR_DENY_PROD__="ERROR: Запрещено в PROD режиме"
+export __DOCKER_CONTAINER_NAME__="${DOCKER_CONTAINER_NAME:?}"

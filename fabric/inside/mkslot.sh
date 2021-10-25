@@ -3,7 +3,7 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/../util.sh" ".."
 
-if [ ! -d "$__SOFTHSM_TOKENS__" ]; then
+if [[ "$__BCCSP_DEFAULT__" == "PKCS11" ]] && [ ! -d "$__SOFTHSM_TOKENS__" ]; then
   mkdir -p "$__SOFTHSM_TOKENS__" || exit 1
 
   softhsm2-util --init-token --slot 0 \
