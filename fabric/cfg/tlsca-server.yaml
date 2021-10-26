@@ -311,7 +311,7 @@ csr:
       ST: St. Petersburg
       L: St. Petersburg
       O: VTB Bank(PJSC)
-      OU: AFSC
+      OU: B2B
   hosts:
     - 0.0.0.0
   ca:

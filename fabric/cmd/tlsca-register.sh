@@ -5,10 +5,10 @@ source "${BIN}/../util.sh" ".."
 
 export FABRIC_CA_CLIENT_HOME="$__TLSCA_ADM_HOME__"
 
-fabric-ca-client register --id.name afsc-peer0.vtb.ru --id.secret peer0PW \
+fabric-ca-client register --id.name b2b-peer0.vtb.ru --id.secret peer0PW \
   --id.type peer || exit 1
 
-fabric-ca-client register --id.name afsc-peer1.vtb.ru --id.secret peer1PW \
+fabric-ca-client register --id.name b2b-peer1.vtb.ru --id.secret peer1PW \
   --id.type peer || exit 1
 
 fabric-ca-client register --id.name Admin@vtb.ru --id.secret AdminPW \

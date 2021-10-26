@@ -241,7 +241,7 @@ ldap:
 #############################################################################
 affiliations:
    vtb:
-      - afsc
+      - b2b
 
 #############################################################################
 #  Signing section
@@ -310,10 +310,9 @@ csr:
       ST: St. Petersburg
       L: St. Petersburg
       O: VTB Bank(PJSC)
-      OU: AFSC
+      OU: B2B
   hosts:
     - 0.0.0.0
-    - 0.0.0.1
   ca:
     expiry: 131400h
     pathlength: 1
