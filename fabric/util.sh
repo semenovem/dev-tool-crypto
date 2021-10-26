@@ -123,7 +123,6 @@ fabric-ca-client () {
 export -f fabric-ca-client
 
 # --------------------------
-
 dir-empty() {
   local dir=$1
 [ -d "$dir" ] && [ "$(ls "$dir")" ] &&
