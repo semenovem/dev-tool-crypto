@@ -57,5 +57,3 @@ done
 mkdir -p "${__CRYPTO_PEER__}/vtb.ru/"{ca,tlsca} || exit 1
 cp "${__TLSCA_SRV_HOME__}/tlsca-cert.pem" "${__CRYPTO_PEER__}/vtb.ru/tlsca/" || exit 1
 cp "${__CA_SRV_HOME__}/ca-cert.pem" "${__CRYPTO_PEER__}/vtb.ru/ca/"
-
-exit $?
