@@ -7,7 +7,8 @@ HSM_PIN="1"
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/util.sh" ""
 
-DEST="crypto"
+V=$1
+DEST="${V:=crypto}"
 
 [ -z "$DEST" ] &&
   echo "Не указана директория, куда скопировать крипто-материалы" &&

@@ -18,4 +18,4 @@ fabric-ca-client enroll -u https://ca-admin:ca-adminpw@0.0.0.0:7053 \
   --home "$__CA_ADM_HOME__" \
   --csr.keyrequest.algo "ecdsa" \
   --csr.keyrequest.size "256" \
-  --csr.names "C=RU,ST=St. Petersburg,L=St. Petersburg,O=VTB Bank(PJSC),OU=AFSC"
+  --csr.names "C=RU,ST=St. Petersburg,L=St. Petersburg,O=VTB Bank(PJSC)"

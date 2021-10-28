@@ -125,9 +125,7 @@ export -f fabric-ca-client
 # --------------------------
 dir-empty() {
   local dir=$1
-[ -d "$dir" ] && [ "$(ls "$dir")" ] &&
-  echo "Директория [$dir] не пуста" &&
-  return 1
+  [ -d "$dir" ] && [ "$(ls "$dir")" ] && echo "Директория [$dir] не пуста" &&  return 1
 
   return 0
 }

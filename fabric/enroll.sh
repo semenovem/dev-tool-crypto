@@ -13,4 +13,10 @@ bash "${BIN}/cmd/ca-admin.sh" || exit 1
 bash "${BIN}/cmd/ca-register.sh" || exit 1
 bash "${BIN}/cmd/ca-enroll.sh" || exit 1
 
+# gpn ---------------------------
+bash "${BIN}/cmd/gpn.ru/tlsca-register.sh" || exit 1
+bash "${BIN}/cmd/gpn.ru/tlsca-enroll.sh" || exit 1
+bash "${BIN}/cmd/gpn.ru/ca-register.sh" || exit 1
+bash "${BIN}/cmd/gpn.ru/ca-enroll.sh" || exit 1
+
 bash "${BIN}/cmd/99-pretty.sh" || exit 1
