@@ -12,8 +12,11 @@ CFG_DIST="${__CA_SRV_HOME__}/fabric-ca-server-config.yaml"
 cd "$__CA_SRV_HOME__" || exit 1
 
 export FABRIC_CA_SERVER_DEBUG=false
-export FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=127.0.0.1:9444
 export FABRIC_CA_SERVER_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
+
+if [ "$__CA_OPERATIONS_LISTENADDRESS__" ]; then
+  export FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS="127.0.0.1:${__CA_OPERATIONS_LISTENADDRESS__}"
+fi
 
 fabric-ca-server start \
   -b ca-admin:ca-adminpw \
