@@ -34,6 +34,9 @@ export __CA_PORT__="${CA_PORT:=7053}"
 # Хранение ключевой информации [PKCS11 | SW]
 export __BCCSP_DEFAULT__="${BCCSP_DEFAULT:=SW}"
 
+export __TLSCA_OPERATIONS_LISTENADDRESS__="$TLSCA_OPERATIONS_LISTENADDRESS"
+export __CA_OPERATIONS_LISTENADDRESS__="$CA_OPERATIONS_LISTENADDRESS"
+
 # --------------------------
 [[ "$__MOUNT_DIR__" != /* ]] && __MOUNT_DIR__="${_BIN}/${__MOUNT_DIR__}"
 [[ "$__LOGS_DIR__" != /* ]] && __LOGS_DIR__="${_BIN}/${__LOGS_DIR__}"
@@ -61,12 +64,14 @@ export __CFG__="${_BIN}/cfg"
 export __TLSCA_SRV_HOME__="${__FABCA__}/tlsca-server"
 export __TLSCA_ADM_HOME__="${__FABCA__}/tlsca-admin"
 export __TLSCA_SCR__="0.0.0.0:${__TLSCA_PORT__}"
+export __TLSCA_URL__="https://${__TLSCA_SCR__}"
 export __TLSCA_LOG__="${__LOGS_DIR__}/ca-server-tls.txt"
 
 # ca(msp) удостоверяющий сервер
 export __CA_SRV_HOME__="${__FABCA__}/ca-server"
 export __CA_ADM_HOME__="${__FABCA__}/ca-admin"
 export __CA_SCR__="0.0.0.0:${__CA_PORT__}"
+export __CA_URL__="https://${__CA_SCR__}"
 export __CA_LOG__="${__LOGS_DIR__}/ca-server-msp.txt"
 
 # Защита подключения к удостоверяющим центрам
@@ -100,6 +105,7 @@ export FABRIC_CA_CLIENT_BCCSP_PKCS11_SECURITY=256
 # FABRIC SERVER
 # info, warning, debug, error, fatal, critical
 export FABRIC_CA_SERVER_LOGLEVEL="warning"
+export FABRIC_CA_SERVER_DEBUG=false
 export FABRIC_CA_SERVER_BCCSP_PKCS11_LIBRARY="$__HSM_LIB__"
 export FABRIC_CA_SERVER_BCCSP_PKCS11_PIN="$__HSM_PIN__"
 export FABRIC_CA_SERVER_BCCSP_PKCS11_LABEL="$__HSM_SLOT__"

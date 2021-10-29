@@ -11,6 +11,8 @@ CFG_DIST="${__TLSCA_SRV_HOME__}/fabric-ca-server-config.yaml"
 [ ! -f "$CFG_DIST" ] && cp "$CFG_SOURCE" "$CFG_DIST" && [ $? -ne 0 ] && exit 1
 cd "$__TLSCA_SRV_HOME__" || exit 1
 
+export FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS="127.0.0.1:${__TLSCA_OPERATIONS_LISTENADDRESS__}"
+
 fabric-ca-server start \
   -b ca-admin:ca-adminpw \
   --home "$__TLSCA_SRV_HOME__" \
