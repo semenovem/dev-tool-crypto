@@ -12,9 +12,9 @@ help: Makefile
 	@echo "Choose a command in:"
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
-## build - собрать образ
-.PHONY: build
-build:
+## build-image - собрать образ
+.PHONY: build-image
+build-image:
 	@docker build -f ./Dockerfile -t $(DOCKER_IMG) .
 
 ## dev - контейнер для разработки. Запуск приложения внутри контейнера: `dev/run.sh`
