@@ -66,3 +66,11 @@
 
 Создать docker volume для хранения постоянных данных crypto генератора  
 docker volume create --driver local afsc-fabric-crypto-db  
+
+Содать слот в softhsm:
+```
+softhsm2-util --init-token --slot 0 \
+  --label "${ENV_HSM_SLOT}" \
+  --pin "${ENV_HSM_PIN}" \
+  --so-pin 1212
+```

@@ -3,11 +3,25 @@
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 source "${BIN}/util.sh" ""
 
-#export FABRIC_CA_CLIENT_HOME="$__CA_ADM_HOME__"
-#export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
+TYPE=$1
+ON=
 
-export FABRIC_CA_CLIENT_HOME="$__TLSCA_ADM_HOME__"
+if [ "$TYPE" = "tls" ]; then
+  echo "--- tls"
+  export FABRIC_CA_CLIENT_HOME="$__TLSCA_ADM_HOME__"
+  ON=1
+fi
 
-fabric-ca-client identity list
+if [ "$TYPE" = "msp" ]; then
+  echo "--- msp"
+  export FABRIC_CA_CLIENT_HOME="$__CA_ADM_HOME__"
+  export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
+  ON=1
+fi
+[ -z "$ON" ] && echo "use: $0 [tls|msp]"
 
-exit $?
+echo -e \
+  "Flags:
+    --id string   Get identity information from the fabric-ca server"
+
+[ "$ON" ] && shift && fabric-ca-client identity list $@

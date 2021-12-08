@@ -7,8 +7,7 @@ source "${BIN}/../util.sh" ".."
   echo "Директория [$__CONN_TLS__] не пуста" &&
   exit 1
 
-mkdir -p "$__CONN_TLS__"
-[ $? -ne 0 ] && exit 1
+mkdir -p "$__CONN_TLS__" || exit 1
 
 CA_KEY="${__CONN_TLS__}/ca-key.pem"
 SRV_CSR="${__CONN_TLS__}/srv-csr.pem"
@@ -42,7 +41,6 @@ openssl x509 -req -days "365" \
   -CAcreateserial \
   -out "$__CONN_SRV_CERT__"
 
-# shellcheck disable=SC2181
 [ "$?" -ne "0" ] && exit 1
 
 # Генерация ключа админа
@@ -62,5 +60,3 @@ openssl x509 -req -days "365" \
   -CAkey "$CA_KEY" \
   -CAcreateserial \
   -out "$__CONN_ADM_CERT__"
-
-exit $?
