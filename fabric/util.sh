@@ -5,17 +5,27 @@ _BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
 [ "$1" ] && _BIN="${_BIN}/$1"
 [ ! -d "$_BIN" ] && echo "Ошибка определения текущей директории" && exit 1
 [ ! -f "${_BIN}/util.sh" ] && echo "Ошибка определения текущей директории" && exit 1
+PROJ=
+
+#export ORG="org-example"
+
+[ -z "$ORG" ] && echo "Не установлена переменная окружения ORG" && exit 1
+PROJ="${_BIN}/${ORG}"
+[ ! -d "$PROJ" ] && echo "Нет директории ${PROJ}" && exit 1
 
 TMP=$(mktemp) || exit 1
-grep -Eiv '(^\s*#|^$|^\s*\w+=\s*$)' "${_BIN}/project.properties" > "$TMP" || exit 1
+grep -Eiv '(^\s*#|^$|^\s*\w+=\s*$)' "${PROJ}/project.properties" >"$TMP" || exit 1
 
 set -o allexport
 source "$TMP"
 set +o allexport
 
+# Путь к директории проекта (это отдельный CA)
+export __PROJ__="$PROJ"
+
 # флаг разработки
 export __PRODUCTION__=
-[[ "$PRODUCTION" == "off" ]] && __PRODUCTION__="off"
+[ "$PRODUCTION" = "off" ] && __PRODUCTION__="off"
 
 export __MOUNT_DIR__="$MOUNT_DIR"
 export __HSM_LIB__="$HSM_LIB"
@@ -34,16 +44,17 @@ export __CA_PORT__="${CA_PORT:=7053}"
 # Хранение ключевой информации [PKCS11 | SW]
 export __BCCSP_DEFAULT__="${BCCSP_DEFAULT:=SW}"
 
+#
 export __TLSCA_OPERATIONS_LISTENADDRESS__="$TLSCA_OPERATIONS_LISTENADDRESS"
 export __CA_OPERATIONS_LISTENADDRESS__="$CA_OPERATIONS_LISTENADDRESS"
 
 # --------------------------
-[[ "$__MOUNT_DIR__" != /* ]] && __MOUNT_DIR__="${_BIN}/${__MOUNT_DIR__}"
-[[ "$__LOGS_DIR__" != /* ]] && __LOGS_DIR__="${_BIN}/${__LOGS_DIR__}"
+[[ "$__MOUNT_DIR__" != /* ]] && __MOUNT_DIR__="${PROJ}/${__MOUNT_DIR__}"
+[[ "$__LOGS_DIR__" != /* ]] && __LOGS_DIR__="${PROJ}/${__LOGS_DIR__}"
 
 ERR=""
 [ -z "$__MOUNT_DIR__" ] && echo "Не установлено значение MOUNT_DIR" && ERR=1
-if [[ "$__BCCSP_DEFAULT__" == "PKCS11" ]]; then
+if [ "$__BCCSP_DEFAULT__" = "PKCS11" ]; then
   [ -z "$__HSM_LIB__" ] && echo "Не установлено значение HSM_LIB" && ERR=1
   [ -z "$__HSM_SLOT__" ] && echo "Не установлено значение HSM_SLOT" && ERR=1
   [ -z "$__HSM_PIN__" ] && echo "Не установлено значение HSM_PIN" && ERR=1
@@ -51,14 +62,14 @@ fi
 
 [ -n "$ERR" ] && exit 1
 
-export PATH="${_BIN}/bin.1.4.9:/bin-fabric-ca:${PATH}"
+export PATH="${_BIN}/bin.1.4.9:${PATH}"
 
 export __CRYPTO_NAME__="crypto"
 export __FABCA__="${__MOUNT_DIR__}/fabca"
 export __CRYPTO__="${__MOUNT_DIR__}/${__CRYPTO_NAME__}"
 export __CRYPTO_PEER__="${__CRYPTO__}/peerOrganizations"
 export __CRYPTO_ORDERER__="${__CRYPTO__}/ordererOrganizations"
-export __CFG__="${_BIN}/cfg"
+export __CFG__="${PROJ}/cfg"
 
 # tlsca удостоверяющий сервер
 export __TLSCA_SRV_HOME__="${__FABCA__}/tlsca-server"
@@ -87,6 +98,12 @@ export __CONN_ADM_CERT__="${__CONN_TLS__}/admin-cert.pem"
 # enroll - reenroll
 export __REENROLL__=
 
+# данные softhsm2
+export __SOFTHSM_CONF_TMPL__="${__PROJ__}/cfg/softhsm.conf"
+export __SOFTHSM_CONF__="${__FABCA__}/softhsm/softhsm.conf"
+export __SOFTHSM_TOKENS__="${__FABCA__}/softhsm/tokens"
+[ "$__SOFTHSM_CONF__" ] && export SOFTHSM2_CONF="$__SOFTHSM_CONF__"
+
 # --------------------------
 # FABRIC CLIENT
 # info, warning, debug, error, fatal, critical
@@ -114,10 +131,10 @@ export FABRIC_CA_SERVER_BCCSP_PKCS11_SECURITY=256
 export FABRIC_CA_SERVER_BCCSP_PKCS11_FILEKEYSTORE_KEYSTORE=msp/keystore
 
 # --------------------------
-fabric-ca-client () {
+fabric-ca-client() {
   local cmd=$1
   shift
-  if [[ "$cmd" == "enroll" ]]; then
+  if [ "$cmd" = "enroll" ]; then
     [ "$REENROLL" ] && cmd=reenroll
   fi
 
@@ -131,7 +148,7 @@ export -f fabric-ca-client
 # --------------------------
 dir-empty() {
   local dir=$1
-  [ -d "$dir" ] && [ "$(ls "$dir")" ] && echo "Директория [$dir] не пуста" &&  return 1
+  [ -d "$dir" ] && [ "$(ls "$dir")" ] && echo "Директория [$dir] не пуста" && return 1
 
   return 0
 }
@@ -139,6 +156,4 @@ dir-empty() {
 export -f dir-empty
 
 # --------------------------
-export __SOFTHSM_TOKENS__="${__FABCA__}/softhsm/tokens"
 export __ERR_DENY_PROD__="ERROR: Запрещено в PROD режиме"
-export __DOCKER_CONTAINER_NAME__="${DOCKER_CONTAINER_NAME:?}"

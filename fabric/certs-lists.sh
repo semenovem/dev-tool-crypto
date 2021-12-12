@@ -18,7 +18,7 @@ if [ "$TYPE" = "msp" ]; then
   export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
   ON=1
 fi
-[ -z "$ON" ] && echo "use: $0 [tls|msp]" && exit 0
+[ -z "$ON" ] && echo -e "use: $0 [tls|msp]"
 
 [ -z $2 ] &&
   echo -e \

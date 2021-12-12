@@ -1,7 +1,12 @@
-include project.properties
 
 DETACH :=
 CMD := bash inside/dev.sh && bash
+
+# для разработки/выпуска с docker
+MOUNT_DIR := /hf-volume
+DOCKER_IMG := fabric-ca/dev:1.0
+DOCKER_CONTAINER_NAME := fabric-ca
+
 
 # -----------------
 # commands
@@ -31,5 +36,7 @@ dev:
 		-e HSM_LIB=/usr/lib/softhsm/libsofthsm2.so \
 		-e HSM_SLOT=afsc \
 		-e HSM_PIN=RecnCbhtyb \
-		-e SOFTHSM2_CONF=/app/cfg/softhsm.conf \
 		"$(DOCKER_IMG)" bash -c "$(CMD)"
+
+
+#		-e SOFTHSM2_CONF=/app/cfg/softhsm.conf \

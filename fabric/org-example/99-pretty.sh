@@ -65,14 +65,14 @@ done
 
 
 # peer gpn.ru
-ADMIN_CERT="${__CRYPTO_PEER__}/gpn.ru/users/Admin@gpn.ru/msp/signcerts/cert.pem"
-for DIR in $(find "${__CRYPTO_PEER__:?}/gpn.ru/peers" -depth -type d); do
-  [ -z "$DIR" ] && continue
-  [[ ! $DIR == *"/msp" ]] && continue
-  TARGET="${DIR}/admincerts"
-  mkdir -p "$TARGET" || exit 1
-  [ ! -f "${TARGET}/cert.pem" ] && (cp "$ADMIN_CERT" "$TARGET" || exit 1)
-done
+#ADMIN_CERT="${__CRYPTO_PEER__}/gpn.ru/users/Admin@gpn.ru/msp/signcerts/cert.pem"
+#for DIR in $(find "${__CRYPTO_PEER__:?}/gpn.ru/peers" -depth -type d); do
+#  [ -z "$DIR" ] && continue
+#  [[ ! $DIR == *"/msp" ]] && continue
+#  TARGET="${DIR}/admincerts"
+#  mkdir -p "$TARGET" || exit 1
+#  [ ! -f "${TARGET}/cert.pem" ] && (cp "$ADMIN_CERT" "$TARGET" || exit 1)
+#done
 
 
 # orderer vtb.ru

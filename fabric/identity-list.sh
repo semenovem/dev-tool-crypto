@@ -18,10 +18,8 @@ if [ "$TYPE" = "msp" ]; then
   export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"
   ON=1
 fi
-[ -z "$ON" ] && echo "use: $0 [tls|msp]"
-
-echo -e \
-  "Flags:
+[ -z "$ON" ] && echo -e "use: $0 [tls|msp]
+  Flags:
     --id string   Get identity information from the fabric-ca server"
 
 [ "$ON" ] && shift && fabric-ca-client identity list $@

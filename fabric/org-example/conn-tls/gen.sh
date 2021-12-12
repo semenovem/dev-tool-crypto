@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../util.sh" ".."
+source "${BIN}/../../util.sh" "../.."
 
 [ -d "$__CONN_TLS__" ] && [ "$(ls "$__CONN_TLS__")" ] &&
   echo "Директория [$__CONN_TLS__] не пуста" &&
@@ -11,10 +11,10 @@ mkdir -p "$__CONN_TLS__" || exit 1
 
 CA_KEY="${__CONN_TLS__}/ca-key.pem"
 SRV_CSR="${__CONN_TLS__}/srv-csr.pem"
-SRV_SSL_CONF="${BIN}/conn-tls-srv.conf"
+SRV_SSL_CONF="${BIN}/tls-srv.conf"
 
 ADM_CSR="${__CONN_TLS__}/adm-csr.pem"
-ADM_SSL_CONF="${BIN}/conn-tls-adm.conf"
+ADM_SSL_CONF="${BIN}/tls-adm.conf"
 
 openssl req -x509 -newkey rsa:4096 -days 3650 -nodes \
   -keyout "$CA_KEY" \

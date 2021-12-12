@@ -5,8 +5,10 @@ source "${BIN}/util.sh" ""
 
 # Проверить tls серты
 if [ ! -d "$__CONN_TLS__" ] || [ -z "$(ls "$__CONN_TLS__")" ]; then
-  bash "${BIN}/conn-tls/conn-gen.sh"
+  bash "${__PROJ__}/conn-tls/gen.sh"
 fi
 
-bash "${BIN}/cmd/tlsca-server.sh" || exit 1
-bash "${BIN}/cmd/ca-server.sh" || exit 1
+# Если задан softhsm, создать файл конфигурации
+
+bash "${__PROJ__}/tlsca-server.sh" || exit 1
+bash "${__PROJ__}/ca-server.sh" || exit 1
