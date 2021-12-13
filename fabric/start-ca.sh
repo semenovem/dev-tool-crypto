@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/util.sh" ""
+source "${BIN:?}/util.sh" ""
 
 # Проверить tls серты
 if [ ! -d "$__CONN_TLS__" ] || [ -z "$(ls "$__CONN_TLS__")" ]; then

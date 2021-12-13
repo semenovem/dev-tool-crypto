@@ -5,7 +5,7 @@ echo "# Создает хранилище и закрытый ключ          
 echo "#################################################################"
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/util.sh"
+source "${BIN:?}/util.sh"
 
 [ -f "$__STORE__" ] && echo "Файл '$__STORE__' уже существует" && exit 1
 [ ! -d "$__STORE_NAME__" ] && (mkdir "$__STORE_NAME__" || exit 1)

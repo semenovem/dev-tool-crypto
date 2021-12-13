@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../../util.sh" "../.."
+source "${BIN:?}/../../util.sh" "../.."
 
 [ -d "$__CONN_TLS__" ] && [ "$(ls "$__CONN_TLS__")" ] &&
   echo "Директория [$__CONN_TLS__] не пуста" &&

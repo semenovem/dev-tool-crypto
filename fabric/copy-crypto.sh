@@ -7,7 +7,7 @@ HSM_PIN="1"
 DOCKER_CONTAINER_NAME=fabric-ca
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/util.sh" ""
+source "${BIN:?}/util.sh" ""
 
 V=$1
 DEST="${V:=crypto}"

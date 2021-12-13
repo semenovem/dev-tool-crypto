@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../util.sh" ".."
+source "${BIN:?}/../util.sh" ".."
 
 mkdir -p "${__TLSCA_SRV_HOME__}" || exit 1
 mkdir -p "${__LOGS_DIR__}" || exit 1

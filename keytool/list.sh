@@ -5,6 +5,6 @@ echo "# Содержимое хранилища                                 
 echo "#################################################################"
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/util.sh"
+source "${BIN:?}/util.sh"
 
 keytool -list -keystore "$__STORE__" -storepass "$__PIN__"

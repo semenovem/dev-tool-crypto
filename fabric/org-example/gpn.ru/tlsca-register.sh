@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../../util.sh" "../.."
+source "${BIN:?}/../../util.sh" "../.."
 
 export FABRIC_CA_CLIENT_HOME="$__TLSCA_ADM_HOME__"
 

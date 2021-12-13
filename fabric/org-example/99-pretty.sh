@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=$(dirname "$([[ $0 == /* ]] && echo "$0" || echo "$PWD/${0#./}")")
-source "${BIN}/../util.sh" ".."
+source "${BIN:?}/../util.sh" ".."
 
 TLSCA_CERT="${__TLSCA_SRV_HOME__}/tlsca-cert.pem"
 
