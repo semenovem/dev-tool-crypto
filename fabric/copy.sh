@@ -10,7 +10,7 @@ for it in org-example org-gpn ; do
 
   export ORG="$it"
 
-  bash "${BIN}/copy-crypto.sh" "$d"
+  bash "${BIN:?}/copy-crypto.sh" "$d"
 done
 
 
@@ -18,4 +18,4 @@ mv ${TM}/org-gpn/peerOrganizations/* "${TM}/org-example/peerOrganizations/"
 
 ls -l "${TM}/org-example/peerOrganizations"
 
-mv  "${TM}/org-example"  /Users/sem/_dev/_work/afsc-v2/testbeds/dev/assets/new
+mv  "${TM}/org-example"  /Users/sem/_dev/_work/afsc-v2/testbeds/dev/assets/crypto-config

@@ -1,6 +1,6 @@
 
 DETACH :=
-CMD := bash inside/dev.sh && bash
+CMD := bash inside/dev.sh && bash || bash
 
 # для разработки/выпуска с docker
 MOUNT_DIR := /hf-volume
