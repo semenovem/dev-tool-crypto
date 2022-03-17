@@ -8,7 +8,7 @@ mkdir -p "$__CA_ADM_HOME__" || exit 1
 
 CFG_SOURCE="${__CFG__}/ca-admin.yaml"
 CFG_DIST="${__CA_ADM_HOME__}/fabric-ca-client-config.yaml"
-[ ! -f "$CFG_DIST" ] && cp "$CFG_SOURCE" "$CFG_DIST" && [ $? -ne 0 ] && exit 1
+[ ! -f "$CFG_DIST" ] && (cp "$CFG_SOURCE" "$CFG_DIST" || exit 1)
 cd "$__CA_ADM_HOME__" || exit 1
 
 export FABRIC_CA_CLIENT_BCCSP_DEFAULT="$__BCCSP_DEFAULT__"

@@ -24,4 +24,4 @@ echo -e \
   "Flags:
     --id string   Get identity information from the fabric-ca server"
 
-[ "$ON" ] && shift && fabric-ca-client identity list $@
+[ "$ON" ] && shift && fabric-ca-client identity list "$@"

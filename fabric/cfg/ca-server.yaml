@@ -128,16 +128,18 @@ registry:
   identities:
      - name: ca-admin
        pass: ca-adminpw
-       type: client
-       affiliation: ""
+       type: admin
+       affiliation: "VTBMSP"
        attrs:
-          hf.Registrar.Roles: "*"
-          hf.Registrar.DelegateRoles: "*"
-          hf.Revoker: true
-          hf.IntermediateCA: true
-          hf.GenCRL: true
-          hf.Registrar.Attributes: "*"
-          hf.AffiliationMgr: true
+          hf.Registrar.Roles: "peer,client,user,admin,orderer:ecert"
+          hf.Registrar.DelegateRoles: "peer,client,user,admin,orderer:ecert"
+          hf.Revoker: true:ecert
+          hf.IntermediateCA: false:ecert
+          hf.GenCRL: true:ecert
+          hf.Registrar.Attributes: "*:ecert"
+          hf.AffiliationMgr: true:ecert
+          admin: true:ecert
+          abac.init: true:ecert
 
 #############################################################################
 #  Database section
@@ -240,8 +242,9 @@ ldap:
 # which are always stored in lower case.
 #############################################################################
 affiliations:
-   vtb:
-      - afsc
+  vtb:
+    - afsc
+    - s7
 
 #############################################################################
 #  Signing section
@@ -304,13 +307,13 @@ csr:
   cn: ca.vtb.ru
   keyrequest:
     algo: ecdsa
-    size: 256
+    size: 384
   names:
     - C: RU
       ST: St. Petersburg
       L: St. Petersburg
       O: VTB Bank(PJSC)
-      OU: AFSC
+      OU: VTBMSP
   hosts:
     - 0.0.0.0
     - 0.0.0.1

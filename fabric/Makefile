@@ -3,6 +3,9 @@ include project.properties
 DETACH :=
 CMD := bash inside/dev.sh && bash
 
+MOUNT_HF_VOLUME := "afsc-fabric-crypto-db" # данные в контейнере
+MOUNT_HF_VOLUME := $(PWD)/hf-volume # для локального размещения данных
+
 # -----------------
 # commands
 # -----------------
@@ -24,7 +27,7 @@ dev:
 		--name $(DOCKER_CONTAINER_NAME) \
 		-w /app \
 		-v $(PWD):/app:ro \
-		-v afsc-fabric-crypto-db:$(MOUNT_DIR):rw \
+		-v $(MOUNT_HF_VOLUME):$(MOUNT_DIR):rw \
 		-e PRODUCTION=off \
 		-e BCCSP_DEFAULT=PKCS11 \
 		-e LOGS_DIR=/tmp \

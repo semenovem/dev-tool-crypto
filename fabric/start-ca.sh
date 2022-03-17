@@ -9,4 +9,4 @@ if [ ! -d "$__CONN_TLS__" ] || [ -z "$(ls "$__CONN_TLS__")" ]; then
 fi
 
 bash "${BIN}/cmd/tlsca-server.sh" || exit 1
-bash "${BIN}/cmd/ca-server.sh" || exit 1
+bash "${BIN}/cmd/ca-server.sh"

@@ -135,7 +135,7 @@ registry:
           hf.Registrar.Roles: "*"
           hf.Registrar.DelegateRoles: "*"
           hf.Revoker: true
-          hf.IntermediateCA: true
+          hf.IntermediateCA: false
           hf.GenCRL: true
           hf.Registrar.Attributes: "*"
           hf.AffiliationMgr: true
@@ -311,7 +311,7 @@ csr:
       ST: St. Petersburg
       L: St. Petersburg
       O: VTB Bank(PJSC)
-      OU: AFSC
+      OU: VTBMSP
   hosts:
     - 0.0.0.0
   ca:

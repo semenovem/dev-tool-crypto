@@ -74,3 +74,8 @@ softhsm2-util --init-token --slot 0 \
   --pin "${ENV_HSM_PIN}" \
   --so-pin 1212
 ```
+
+|-------------------------------------|
+|        РАЗДЕЛ ДЛЯ РАЗРАБОТКИ        |
+|-------------------------------------|
+https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html

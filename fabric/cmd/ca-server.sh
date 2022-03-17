@@ -20,7 +20,7 @@ fi
 
 fabric-ca-server start \
   -b ca-admin:ca-adminpw \
-  --loglevel info \
+  --loglevel debug \
   --home "$__CA_SRV_HOME__" \
   --port "$__CA_PORT__" \
   --tls.enabled \
@@ -29,7 +29,7 @@ fabric-ca-server start \
   --tls.clientauth.certfiles "$__CONN_CA_CERT__" \
   --csr.cn "ca.vtb.ru" \
   --csr.keyrequest.algo "ecdsa" \
-  --csr.keyrequest.size 256 \
+  --csr.keyrequest.size 384 \
   --csr.hosts "0.0.0.0" \
   &>"$__CA_LOG__" &
 
